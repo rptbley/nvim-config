@@ -56,7 +56,7 @@ local M = {
         },
       },
       window = {
-        position = "float",
+        position = "left",
         width = 40,
         mapping_options = {
           noremap = true,
@@ -152,7 +152,7 @@ local M = {
       },
       git_status = {
         window = {
-          position = "float",
+          position = "right",
           mappings = {
             ["A"] = "git_add_all",
             ["gu"] = "git_unstage_file",
