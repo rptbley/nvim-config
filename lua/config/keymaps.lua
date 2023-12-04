@@ -11,7 +11,7 @@ key("n", "<leader>ff", builtin.find_files, {})
 key("n", "<leader>fg", builtin.live_grep, {})
 key("n", "<leader>bt", builtin.builtin, {})
 -- lspsaga
-key("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", silent)
+key("n", "gh", "<cmd>Lspsaga finder<CR>", silent)
 key({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", silent)
 key("n", "gr", "<cmd>Lspsaga rename<CR>", silent)
 key("n", "gr", "<cmd>Lspsaga rename ++project<CR>", silent)
