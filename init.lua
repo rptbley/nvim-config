@@ -8,3 +8,5 @@ augroup jdtls_lsp
     autocmd FileType java lua require'jdtls.jdtls_setup'.setup()
 augroup end
 ]]
+
+vim.cmd [[ colorscheme xcodedark ]]
