@@ -9,4 +9,4 @@ augroup jdtls_lsp
 augroup end
 ]]
 
-vim.cmd [[ colorscheme xcodedark ]]
+vim.cmd [[ colorscheme monokai-pro ]]
