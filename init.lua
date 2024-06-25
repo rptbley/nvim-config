@@ -9,4 +9,5 @@ augroup jdtls_lsp
 augroup end
 ]]
 
-vim.cmd [[ colorscheme monokai-pro ]]
+vim.cmd [[ colorscheme darcula ]]
+vim.cmd [[ set termguicolors ]]
