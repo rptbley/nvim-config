@@ -4,7 +4,7 @@ local wk = require("which-key")
 -- neotree
 wk.register({
 	name = "NeoTree",
-	["1"] = { ":Neotree<CR>", "toggle" },
+	["1"] = { ":Neotree toggle<CR>", "toggle" },
 	["2"] = { ":Neotree git_status<CR>", "Git status" },
 	["3"] = { ":Neotree buffers<CR>", "Current Open Files" },
 }, { prefix = "<leader>n" })
