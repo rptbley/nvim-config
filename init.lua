@@ -9,5 +9,5 @@ augroup jdtls_lsp
 augroup end
 ]]
 
-vim.cmd [[ colorscheme darcula ]]
+vim.cmd [[ colorscheme xcodedark ]]
 vim.cmd [[ set termguicolors ]]
