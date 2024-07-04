@@ -1,36 +1,72 @@
-local key = vim.keymap.set
-local silent = { silent = true }
+local builtin = require("telescope.builtin")
+local wk = require("which-key")
 
 -- neotree
-key("n", "<leader>1", ":Neotree<CR>", silent)
-key("n", "<leader>2", ":Neotree git_status<CR>", silent)
-key("n", "<leader>3", ":Neotree buffers<CR>", silent)
+wk.register({
+	name = "NeoTree",
+	["1"] = { ":Neotree<CR>", "toggle" },
+	["2"] = { ":Neotree git_status<CR>", "Git status" },
+	["3"] = { ":Neotree buffers<CR>", "Current Open Files" },
+}, { prefix = "<leader>n" })
+
 -- telescope
-local builtin = require("telescope.builtin")
-key("n", "<leader>ff", builtin.find_files, {})
-key("n", "<leader>fg", builtin.live_grep, {})
-key("n", "<leader>bt", builtin.builtin, {})
+wk.register({
+	name = "Telescope",
+	f = { builtin.find_files, "Find file" },
+	g = { builtin.live_grep, "Live grep" },
+}, { prefix = "<leader>f" })
+
 -- lspsaga
-key("n", "gh", "<cmd>Lspsaga finder<CR>", silent)
-key({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", silent)
-key("n", "gr", "<cmd>Lspsaga rename<CR>", silent)
-key("n", "gr", "<cmd>Lspsaga rename ++project<CR>", silent)
-key("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", silent)
-key("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", silent)
-key("n", "gp", "<cmd>Lspsaga peek_definition<CR>", silent)
-key("n", "gd", "<cmd>Lspsaga goto_definition<CR>", silent)
-key("n", "<leader>o", "<cmd>Lspsaga outline<CR>", silent)
-key("n", "K", "<cmd>Lspsaga hover_doc<CR>", silent)
+wk.register({
+	name = "Lspsaga",
+	h = { ":Lspsaga finder<CR>", "File Search" },
+	r = { ":Lspsaga rename ++project", "Rename" },
+	t = { ":Lspsaga peek_type_definition", "Show Type" },
+	p = { ":Lspsaga peek_definition", "Show definition" },
+	d = { ":Lspsaga goto_definition", "Go to definition" },
+	["sl"] = { ":Lspsaga show_line_diagnostics", "Show Line Diagnostics" },
+	o = { ":Lspsaga outline<CR>", "Lspsaga outline" },
+	K = { ":Lspsaga hover_doc<CR>", "Show Documentation" },
+}, { prefix = "<leader>g" })
+
 -- bufferline
-key("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", silent)
-key("n", "<leader><Tab>", "<cmd>BufferLineCyclePrev<CR>", silent)
-key("n", "<leader>w", ":bdelete<CR>", silent)
+wk.register({
+	["<Tab>"] = { ":BufferLineCycleNext<CR>", "Next Buffer" },
+	["<leader>Tab"] = { ":BufferLineCyclePrev<CR>", "Prev Buffer" },
+	["bd"] = { ":bdelete<CR>", "Close Buffer" },
+})
+
 -- split window
-key("n", "<leader>v", ":vsplit<CR><C-w>l", silent)
-key("n", "<leader>h", ":split<CR>", silent)
-key("n", "<leader>te", ":tabedit<CR>", silent)
+wk.register({
+	name = "View",
+	v = { ":vsplit<CR><C-w>l", "Split view vertically" },
+	h = { ":split<CR>", "Split view horizentally" },
+	t = { ":tabedit<CR>", "Create New Tab" },
+}, { prefix = "<leader>w" })
+
 -- splitmove
-key("n", "<C-h>", ":TmuxNavigateLeft<CR>", silent)
-key("n", "<C-l>", ":TmuxNavigateRight<CR>", silent)
-key("n", "<C-k>", ":TmuxNavigateUp<CR>", silent)
-key("n", "<C-j>", ":TmuxNavigateDown<CR>", silent)
+wk.register({
+	name = "Move View",
+	["<C-h"] = { ":TmuxNavigateLeft<CR>", "Move View Left" },
+	["<C-l>"] = { ":TmuxNavigateRight<CR>", "Move View Right" },
+	["<C-k>"] = { ":TmuxNavigateUp<CR>", "Move View Up" },
+	["<C-j>"] = { ":TmuxNavigateDown<CR>", "Move View Down" },
+})
+
+-- git sign
+local gs = package.loaded.gitsigns
+wk.register({
+	s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
+	r = { ":Gitsigns reset_hunk<CR>", "Reset hunk" },
+	S = { gs.stage_buffer, "Stage buffer" },
+	u = { gs.undo_stage_hunk, "Undo Stage hunk" },
+	R = { gs.reset_buffer, "Reset buffer" },
+	p = { gs.preview_hunk, "Preview hunk" },
+	b = {
+		function()
+			gs.diffthis("~")
+		end,
+		"Git diff",
+	},
+	["td"] = { gs.toggle_deleted, "Toggle deleted" },
+}, { prefix = "<leader>h" })
