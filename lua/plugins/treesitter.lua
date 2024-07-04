@@ -24,9 +24,6 @@ local M = {
         "vim",
         "regex",
       },
-      autotag = {
-        enable = true,
-      },
     })
   end,
 }
