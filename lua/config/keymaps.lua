@@ -3,11 +3,10 @@ local wk = require("which-key")
 
 -- neotree
 wk.register({
-	name = "NeoTree",
-	["1"] = { ":Neotree toggle<CR>", "toggle" },
-	["2"] = { ":Neotree git_status<CR>", "Git status" },
-	["3"] = { ":Neotree buffers<CR>", "Current Open Files" },
-}, { prefix = "<leader>n" })
+	["1"] = { ":Neotree toggle<CR>", "Neotree toggle" },
+	["2"] = { ":Neotree git_status<CR>", "Noetree Git status" },
+	["3"] = { ":Neotree buffers<CR>", "Neotree Current Open Files" },
+}, { prefix = "<leader>" })
 
 -- telescope
 wk.register({

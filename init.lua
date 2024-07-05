@@ -10,5 +10,4 @@ augroup end
 ]])
 
 vim.cmd([[ set termguicolors ]])
-vim.o.background = "dark"
 vim.cmd([[ colorscheme gruvbox]])
