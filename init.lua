@@ -9,7 +9,8 @@ augroup jdtls_lsp
 augroup end
 ]])
 
-vim.cmd([[ colorscheme darcula-solid ]])
+vim.cmd([[ colorscheme darcula-solid-custom ]])
+vim.cmd([[ set termguicolors ]])
 
 local uv = vim.loop
 

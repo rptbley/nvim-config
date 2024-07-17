@@ -27,7 +27,7 @@ wk.register({
 	["sl"] = { ":Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
 	o = { ":Lspsaga outline<CR>", "Lspsaga outline" },
 	K = { ":Lspsaga hover_doc<CR>", "Show Documentation" },
-}, { prefix = "<leader>g" })
+}, { prefix = "g" })
 
 -- bufferline
 wk.register({
