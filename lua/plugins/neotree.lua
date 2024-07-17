@@ -152,7 +152,7 @@ local M = {
       },
       git_status = {
         window = {
-          position = "right",
+          position = "left",
           mappings = {
             ["A"] = "git_add_all",
             ["gu"] = "git_unstage_file",
