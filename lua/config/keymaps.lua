@@ -18,15 +18,16 @@ wk.register({
 -- lspsaga
 wk.register({
 	name = "Lspsaga",
+	a = { ":Lspsaga code_action<CR>", "Code Action" },
 	h = { ":Lspsaga finder<CR>", "File Search" },
-	r = { ":Lspsaga rename ++project", "Rename" },
-	t = { ":Lspsaga peek_type_definition", "Show Type" },
-	p = { ":Lspsaga peek_definition", "Show definition" },
-	d = { ":Lspsaga goto_definition", "Go to definition" },
-	["sl"] = { ":Lspsaga show_line_diagnostics", "Show Line Diagnostics" },
+	r = { ":Lspsaga rename ++project<CR>", "Rename" },
+	t = { ":Lspsaga peek_type_definition<CR>", "Show Type" },
+	p = { ":Lspsaga peek_definition<CR>", "Show definition" },
+	d = { ":Lspsaga goto_definition<CR>", "Go to definition" },
+	["sl"] = { ":Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
 	o = { ":Lspsaga outline<CR>", "Lspsaga outline" },
 	K = { ":Lspsaga hover_doc<CR>", "Show Documentation" },
-}, { prefix = "<leader>g" })
+}, { prefix = "g" })
 
 -- bufferline
 wk.register({
