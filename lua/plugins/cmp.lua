@@ -1,13 +1,11 @@
 local cmp = {
   "hrsh7th/nvim-cmp",
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
-    "neovim/nvim-lspconfig",
   },
   config = function()
     local cmp = require("cmp")
@@ -59,30 +57,6 @@ local cmp = {
       }, {
         { name = "buffer" },
       }),
-    })
-
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local servers = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls" }
-    local lspconfig = require("lspconfig")
-    for _, lsp in ipairs(servers) do
-      lspconfig[lsp].setup({
-        -- on_attach = my_custom_on_attach,
-        capabilities = capabilities,
-      })
-    end
-
-    lspconfig.bashls.setup({
-      filetypes = { "sh", "zsh" },
-    })
-
-    lspconfig.lua_ls.setup({
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { 'vim' }
-          }
-        }
-      }
     })
   end,
 }
