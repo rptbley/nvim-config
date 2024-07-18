@@ -49,19 +49,13 @@ wk.register({
   e = { builtin.oldfiles, 'Current open files' }
 }, { prefix = "<leader>f" })
 
--- lspsaga
+-- lsp
 wk.register({
-  name = "Lspsaga",
-  a = { ":Lspsaga code_action<CR>", "Code Action" },
-  h = { ":Lspsaga finder<CR>", "File Search" },
-  r = { ":Lspsaga rename ++project<CR>", "Rename" },
-  t = { ":Lspsaga peek_type_definition<CR>", "Show Type" },
-  p = { ":Lspsaga peek_definition<CR>", "Show definition" },
-  d = { ":Lspsaga goto_definition<CR>", "Go to definition" },
-  ["sl"] = { ":Lspsaga show_line_diagnostics<CR>", "Show Line Diagnostics" },
-  o = { ":Lspsaga outline<CR>", "Lspsaga outline" },
-  K = { ":Lspsaga hover_doc<CR>", "Show Documentation" },
-}, { prefix = "g" })
+  ['ga'] = { ':lua vim.lsp.buf.code_action()<CR>', 'Code action' },
+  ['gd'] = { ':lua vim.lsp.buf.definition()<CR>', 'Go to definition' },
+  ['gr'] = { ':lua vim.lsp.buf.references()<CR>', 'Show references' },
+  ['gK'] = { ':lua vim.lsp.buf.hover()<CR>', 'Hover Documentation' }
+})
 
 -- bufferline
 wk.register({
