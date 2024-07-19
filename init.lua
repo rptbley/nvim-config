@@ -1,5 +1,6 @@
 require("config/settings")
 require("config/lazy")
+require("config/custom-command")
 require("config/keymaps")
 
 vim.cmd([[

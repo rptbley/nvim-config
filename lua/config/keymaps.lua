@@ -1,100 +1,58 @@
-local builtin = require("telescope.builtin")
-local wk = require("which-key")
-
-local function is_neotree_open_and_focused()
-  local neotree_open = false
-  local neotree_focused = false
-  local current_win = vim.api.nvim_get_current_win()
-
-  for _, win in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    local buf_ft = vim.api.nvim_buf_get_option(buf, 'filetype')
-    if buf_ft == 'neo-tree' then
-      neotree_open = true
-      if win == current_win then
-        neotree_focused = true
-      end
-    end
-  end
-
-  return neotree_open, neotree_focused
-end
-
-vim.api.nvim_create_user_command('NeotreeCustom', function()
-  local neotree_open, neotree_focused = is_neotree_open_and_focused()
-
-  if neotree_open then
-    if neotree_focused then
-      vim.cmd('NeoTreeClose')
-    else
-      vim.cmd('NeoTreeFocus')
-    end
-  else
-    vim.cmd('Neotree')
-  end
-end, {})
-
+local keymap = vim.keymap.set
+local opt = { noremap = true, silent = true }
 -- neotree
-wk.register({
-  ["1"] = { ':NeotreeCustom<CR>', "File Browser" },
-  ["2"] = { ":Neotree git_status<CR>", "Neotree Git status" },
-  ["3"] = { ":Neotree buffers<CR>", "Neotree open buffers" },
-}, { prefix = "<leader>" })
+keymap("n", "<leader>1", ":NeotreeCustom<CR>", opt)
 
 -- telescope
-wk.register({
-  name = "Telescope",
-  f = { builtin.find_files, "Find file" },
-  g = { builtin.live_grep, "Live grep" },
-  e = { builtin.oldfiles, 'Current open files' }
-}, { prefix = "<leader>f" })
+local telescope = require("telescope.builtin")
+keymap("n", "<leader>ff", telescope.find_files, opt)
+keymap("n", "<leader>fg", telescope.live_grep, opt)
+keymap("n", "<leader>fe", telescope.oldfiles, opt)
 
 -- lsp
-wk.register({
-  ['ga'] = { ':lua vim.lsp.buf.code_action()<CR>', 'Code action' },
-  ['gd'] = { ':lua vim.lsp.buf.definition()<CR>', 'Go to definition' },
-  ['gr'] = { ':lua vim.lsp.buf.references()<CR>', 'Show references' },
-  ['gK'] = { ':lua vim.lsp.buf.hover()<CR>', 'Hover Documentation' }
-})
+-- wk.register({
+-- 	["ga"] = { ":lua vim.lsp.buf.code_action()<CR>", "Code action" },
+-- 	["gd"] = { ":lua vim.lsp.buf.definition()<CR>", "Go to definition" },
+-- 	["gr"] = { ":lua vim.lsp.buf.references()<CR>", "Show references" },
+-- 	["gK"] = { ":lua vim.lsp.buf.hover()<CR>", "Hover Documentation" },
+-- })
 
 -- bufferline
-wk.register({
-  ["<Tab>"] = { ":BufferLineCycleNext<CR>", "Next Buffer" },
-  ["<leader>Tab"] = { ":BufferLineCyclePrev<CR>", "Prev Buffer" },
-  ["bd"] = { ":bdelete<CR>", "Close Buffer" },
-})
+keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opt)
+keymap("n", "<leader><Tab>", ":BufferLineCyclePrev<CR>", opt)
+keymap("n", "<leader>w", ":CustomCloseBuffer<CR>", opt)
 
 -- split window
-wk.register({
-  name = "View",
-  v = { ":vsplit<CR><C-w>l", "Split view vertically" },
-  h = { ":split<CR>", "Split view horizentally" },
-  t = { ":tabedit<CR>", "Create New Tab" },
-}, { prefix = "<leader>w" })
+keymap("n", "<leader>v", ":vsplit<CR><C-w>l", opt)
+keymap("n", "<leader>h", ":split<CR>", opt)
 
 -- splitmove
-wk.register({
-  name = "Move View",
-  ["<C-h"] = { ":TmuxNavigateLeft<CR>", "Move View Left" },
-  ["<C-l>"] = { ":TmuxNavigateRight<CR>", "Move View Right" },
-  ["<C-k>"] = { ":TmuxNavigateUp<CR>", "Move View Up" },
-  ["<C-j>"] = { ":TmuxNavigateDown<CR>", "Move View Down" },
-})
+local tmuxNav = require("nvim-tmux-navigation")
+keymap("n", "<C-h>", tmuxNav.NvimTmuxNavigateLeft, opt)
+keymap("n", "<C-l>", tmuxNav.NvimTmuxNavigateRight, opt)
+keymap("n", "<C-k>", tmuxNav.NvimTmuxNavigateUp, opt)
+keymap("n", "<C-j>", tmuxNav.NvimTmuxNavigateDown, opt)
 
 -- git sign
-local gs = package.loaded.gitsigns
-wk.register({
-  s = { ":Gitsigns stage_hunk<CR>", "Stage hunk" },
-  r = { ":Gitsigns reset_hunk<CR>", "Reset hunk" },
-  S = { gs.stage_buffer, "Stage buffer" },
-  u = { gs.undo_stage_hunk, "Undo Stage hunk" },
-  R = { gs.reset_buffer, "Reset buffer" },
-  p = { gs.preview_hunk, "Preview hunk" },
-  b = {
-    function()
-      gs.diffthis("~")
-    end,
-    "Git diff",
-  },
-  ["td"] = { gs.toggle_deleted, "Toggle deleted" },
-}, { prefix = "<leader>h" })
+local gitsigns = require("gitsigns")
+keymap("n", "<leader>hs", gitsigns.stage_hunk, opt)
+keymap("n", "<leader>hr", gitsigns.reset_hunk, opt)
+keymap("v", "<leader>hs", function()
+	gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end, opt)
+keymap("v", "<leader>hr", function()
+	gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+end, opt)
+keymap("n", "<leader>hS", gitsigns.stage_buffer, opt)
+keymap("n", "<leader>hu", gitsigns.undo_stage_hunk, opt)
+keymap("n", "<leader>hR", gitsigns.reset_buffer, opt)
+keymap("n", "<leader>hp", gitsigns.preview_hunk, opt)
+keymap("n", "<leader>hb", function()
+	gitsigns.blame_line({ full = true })
+end, opt)
+keymap("n", "<leader>tb", gitsigns.toggle_current_line_blame, opt)
+keymap("n", "<leader>hd", gitsigns.diffthis, opt)
+keymap("n", "<leader>hD", function()
+	gitsigns.diffthis("~")
+end, opt)
+keymap("n", "<leader>td", gitsigns.toggle_deleted, opt)

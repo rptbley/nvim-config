@@ -1,5 +1,5 @@
 local M = {
-  "christoomey/vim-tmux-navigator",
+	"alexghergh/nvim-tmux-navigation",
 }
 
 return { M }
