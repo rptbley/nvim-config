@@ -1,5 +1,6 @@
 local keymap = vim.keymap.set
 local opt = { noremap = true, silent = true }
+
 -- neotree
 keymap("n", "<leader>1", ":NeotreeCustom<CR>", opt)
 
@@ -9,13 +10,12 @@ keymap("n", "<leader>ff", telescope.find_files, opt)
 keymap("n", "<leader>fg", telescope.live_grep, opt)
 keymap("n", "<leader>fe", telescope.oldfiles, opt)
 
--- lsp
--- wk.register({
--- 	["ga"] = { ":lua vim.lsp.buf.code_action()<CR>", "Code action" },
--- 	["gd"] = { ":lua vim.lsp.buf.definition()<CR>", "Go to definition" },
--- 	["gr"] = { ":lua vim.lsp.buf.references()<CR>", "Show references" },
--- 	["gK"] = { ":lua vim.lsp.buf.hover()<CR>", "Hover Documentation" },
--- })
+-- lspsaga
+keymap("n", "gd", ":Lspsaga goto_definition<CR>", opt)
+keymap("n", "gf", ":Lspsaga finder<CR>", opt)
+keymap("n", "K", ":Lspsaga hover_doc<CR>", opt)
+keymap("n", "<leader>ca", ":Lspsaga code_action<CR>", opt)
+keymap("n", "<leader>rn", ":Lspsaga rename<CR>", opt)
 
 -- bufferline
 keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opt)

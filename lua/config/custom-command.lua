@@ -37,8 +37,8 @@ vim.api.nvim_create_user_command("CustomCloseBuffer", function()
 	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
 
 	if #buffers > 1 then
-		vim.cmd(":w|bp|bd #")
+		vim.cmd("bp|bd #")
 	else
-		vim.cmd(":w|:bdelete")
+		vim.cmd(":bdelete|:NeoTreeFocus")
 	end
 end, {})
