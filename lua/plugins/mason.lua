@@ -7,7 +7,7 @@ local mason = {
 	end,
 }
 
-local ensure_installed = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls" }
+local ensure_installed = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls", "bashls" }
 
 local masonLspconfig = {
 	"williamboman/mason-lspconfig.nvim",
@@ -27,25 +27,37 @@ local lspConfig = {
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		local lspconfig = require("lspconfig")
 		for _, lsp in ipairs(ensure_installed) do
-			lspconfig[lsp].setup({
-				-- on_attach = my_custom_on_attach,
-				capabilities = capabilities,
-			})
-		end
-
-		lspconfig.bashls.setup({
-			filetypes = { "sh", "zsh" },
-		})
-
-		lspconfig.lua_ls.setup({
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
+			if lsp == "bashls" then
+				lspconfig[lsp].setup({
+					filetypes = { "sh", "zsh" },
+					capabilities = capabilities,
+					root_dir = function()
+						return vim.loop.cwd()
+					end,
+					settings = {
+						bashIde = {
+							globPattern = "*@(.sh|.inc|.bash|.command)",
+						},
 					},
-				},
-			},
-		})
+				})
+			elseif lsp == "lua_ls" then
+				lspconfig[lsp].setup({
+					settings = {
+						Lua = {
+							diagnostics = {
+								globals = { "vim" },
+							},
+						},
+					},
+					capabilities = capabilities,
+				})
+			else
+				lspconfig[lsp].setup({
+					-- on_attach = my_custom_on_attach,
+					capabilities = capabilities,
+				})
+			end
+		end
 	end,
 }
 
