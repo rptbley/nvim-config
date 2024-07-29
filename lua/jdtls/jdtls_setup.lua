@@ -68,13 +68,9 @@ function M.setup()
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-
-    "-jar",
-    path_to_jar,
-    "-configuration",
-    path_to_config,
-    "-data",
-    workspace_dir,
+    "-jar", path_to_jar,
+    "-configuration", path_to_config,
+    "-data", workspace_dir,
   }
 
   config.settings = {
