@@ -170,6 +170,9 @@ function M.setup()
 
   -- Start Server
   require("jdtls").start_or_attach(config)
+
+  vim.opt.tabstop = 4
+  vim.opt.shiftwidth = 4
 end
 
 return M
