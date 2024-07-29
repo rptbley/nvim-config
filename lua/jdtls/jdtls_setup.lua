@@ -55,7 +55,7 @@ function M.setup()
   }
 
   config.cmd = {
-    home .. "/.sdkman/candidates/java/17.0.6-oracle/bin/java",
+    home .. "/.sdkman/candidates/java/17.0.12-amzn/bin/java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -68,9 +68,12 @@ function M.setup()
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-    "-jar", path_to_jar,
-    "-configuration", path_to_config,
-    "-data", workspace_dir,
+    "-jar",
+    path_to_jar,
+    "-configuration",
+    path_to_config,
+    "-data",
+    workspace_dir,
   }
 
   config.settings = {
@@ -136,7 +139,7 @@ function M.setup()
         runtimes = {
           {
             name = "JavaSE-17",
-            path = home .. "/.sdkman/candidates/java/17.0.6-oracle/",
+            path = home .. "/.sdkman/candidates/java/17.0.12-amzn/",
           },
           {
             name = "JavaSE-11",

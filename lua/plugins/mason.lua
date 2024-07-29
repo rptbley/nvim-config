@@ -8,13 +8,12 @@ local mason = {
 }
 
 local ensure_installed = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls", "bashls" }
-local mason_ensure_installed = table.insert(ensure_installed, "jdtls")
 
 local masonLspconfig = {
   "williamboman/mason-lspconfig.nvim",
   config = function()
     require("mason-lspconfig").setup({
-      ensure_installed = mason_ensure_installed,
+      ensure_installed = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls", "bashls", "jdtls" },
     })
   end,
 }
