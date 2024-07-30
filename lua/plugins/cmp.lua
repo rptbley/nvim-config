@@ -4,13 +4,17 @@ local cmp = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    'onsails/lspkind.nvim'
+    'onsails/lspkind.nvim',
+    'rcarriga/cmp-dap'
   },
   config = function()
     local cmp = require("cmp")
     local lspkind = require('lspkind')
 
     cmp.setup({
+      enabled = function()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require('cmp_dap').is_dap_buffer()
+      end,
       formatting = {
         format = lspkind.cmp_format({
           mode = 'symbol_text',
@@ -60,6 +64,12 @@ local cmp = {
       }, {
         { name = "buffer" },
       }),
+    })
+
+    cmp.setup.filetype({ 'dap-repl', 'dapui-watches', 'dapui-hover' }, {
+      sources = {
+        { name = 'dap' }
+      }
     })
   end,
 }

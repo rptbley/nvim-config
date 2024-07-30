@@ -16,12 +16,20 @@ function M.setup()
   local path_to_mason_packages = home .. "/.local/share/nvim/mason/packages"
 
   local path_to_jdtls = path_to_mason_packages .. "/jdtls"
+  local path_to_jdebug = path_to_mason_packages .. '/java-debug-adapter'
+  local path_to_jtest = path_to_mason_packages .. '/java-test'
 
   local path_to_config = path_to_jdtls .. "/config_mac"
   local lombok_path = path_to_jdtls .. "/lombok.jar"
 
   -- 💀
   local path_to_jar = path_to_jdtls .. "/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar"
+
+  local bundles = {
+    vim.fn.glob(path_to_jdebug .. '/extension/server/com.microsoft.java.debug.plugin-*.jar', true)
+  }
+
+  vim.list_extend(bundles, vim.split(vim.fn.glob(path_to_jtest .. '/extension/server/*.jar', true), '\n'))
 
   -- LSP settings for Java.
   local on_attach = function(_, bufnr)
