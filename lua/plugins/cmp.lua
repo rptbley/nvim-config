@@ -15,13 +15,26 @@ local cmp = {
       enabled = function()
         return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require('cmp_dap').is_dap_buffer()
       end,
+      window = {
+        completion = {
+          winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+          col_offset = -3,
+          side_padding = 0,
+          border = 'rounded'
+        },
+        documentation = {
+          border = 'rounded'
+        }
+      },
       formatting = {
-        format = lspkind.cmp_format({
-          mode = 'symbol_text',
-          maxwidth = 50,
-          ellipsis_char = '...',
-          show_labelDetails = true
-        })
+        fields = { 'kind', 'abbr' },
+        format = function(entry, vim_item)
+          local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+          local strings = vim.split(kind.kind, "%s", { trimempty = true })
+          kind.kind = " " .. (strings[1] or "") .. " "
+
+          return kind
+        end,
       },
       snippet = {
         expand = function(args)
