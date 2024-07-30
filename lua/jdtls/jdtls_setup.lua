@@ -41,6 +41,14 @@ function M.setup()
     vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
       vim.lsp.buf.format()
     end, { desc = "Format current buffer with LSP" })
+
+    local keymap = vim.keymap.set
+    local opt = { noremap = true, silent = true }
+
+    keymap('n', '.v', jdtls.extract_variable, opt)
+    keymap('v', '.v', '<Esc>:lua require("jdtls").extract_variable(true)<CR>', opt)
+    keymap('n', '.m', jdtls.extract_method, opt)
+    keymap('v', '.m', '<Esc>:lua require("jdtls").extract_method(true)<CR>', opt)
   end
 
   local capabilities = {
