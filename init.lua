@@ -10,8 +10,8 @@ augroup jdtls_lsp
 augroup end
 ]])
 
-vim.cmd.colorscheme("darcula-dark")
-vim.cmd([[ set termguicolors ]])
+vim.cmd.colorscheme("catppuccin")
+vim.cmd("set termguicolors")
 
 local uv = vim.loop
 
