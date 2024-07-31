@@ -10,7 +10,7 @@ augroup jdtls_lsp
 augroup end
 ]])
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("solarized-osaka")
 vim.cmd("set termguicolors")
 
 local uv = vim.loop

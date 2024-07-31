@@ -13,7 +13,7 @@ local masonLspconfig = {
   "williamboman/mason-lspconfig.nvim",
   config = function()
     require("mason-lspconfig").setup({
-      ensure_installed = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls", "bashls", "jdtls", "java-debug-adapter", "java-test" },
+      ensure_installed = { "tsserver", "lua_ls", "jsonls", "html", "cssls", "cssmodules_ls", "bashls", "jdtls" },
     })
   end,
 }
