@@ -10,11 +10,10 @@ augroup jdtls_lsp
 augroup end
 ]])
 
-vim.cmd.colorscheme("solarized-osaka")
 vim.cmd("set termguicolors")
+vim.cmd.colorscheme("catppuccin")
 
 local uv = vim.loop
-
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.env.TMUX_PLUGIN_MANAGER_PATH then
