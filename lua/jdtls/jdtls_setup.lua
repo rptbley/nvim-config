@@ -64,6 +64,11 @@ function M.setup()
     },
   }
 
+  local handlers = {
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+  }
+
   local config = {
     flags = {
       allow_incremental_sync = true,
@@ -172,6 +177,7 @@ function M.setup()
 
   config.on_attach = on_attach
   config.capabilities = capabilities
+  config.handlers = handlers
   config.on_init = function(client, _)
     client.notify("workspace/didChangeConfiguration", { settings = config.settings })
   end

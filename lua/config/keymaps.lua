@@ -6,26 +6,28 @@ keymap("n", "<leader>1", ":NeotreeCustom<CR>", opt)
 
 -- telescope
 local telescope = require("telescope.builtin")
-keymap("n", "<leader>ff", telescope.find_files, opt)
+keymap("n", "<leader>ff", telescope.fd, opt)
 keymap("n", "<leader>fg", telescope.live_grep, opt)
-keymap("n", "<leader>fe", telescope.oldfiles, opt)
+keymap("n", "<leader>fo", telescope.oldfiles, opt)
+keymap('n', "<leader>fb", telescope.buffers, opt)
 
--- lspsaga
-keymap("n", "gd", ":Lspsaga goto_definition<CR>", opt)
-keymap("n", "gf", ":Lspsaga finder<CR>", opt)
-keymap("n", "K", ":Lspsaga hover_doc<CR>", opt)
-keymap("n", "<leader>ca", ":Lspsaga code_action<CR>", opt)
-keymap("n", "<leader>rn", ":Lspsaga rename<CR>", opt)
-keymap('n', '<F2>', ":Lspsaga diagnostic_jump_next<CR>", opt)
+keymap("n", "gd", ':CustomGoToDefinition<CR>', opt)
+keymap("n", "K", vim.lsp.buf.hover, opt)
+keymap("n", "<leader>ca", vim.lsp.buf.code_action, opt)
+keymap("n", "<leader>rn", vim.lsp.buf.rename, opt)
+keymap('n', '<leader>p', vim.lsp.buf.signature_help, opt)
+keymap('n', '<F2>', vim.diagnostic.goto_next, opt)
+keymap('n', '<leader>d', vim.diagnostic.open_float, opt)
 
 -- bufferline
 keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opt)
 keymap("n", "<leader><Tab>", ":BufferLineCyclePrev<CR>", opt)
 keymap("n", "<leader>w", ":CustomCloseBuffer<CR>", opt)
 
--- split window
+-- window
 keymap("n", "<leader>v", ":vsplit<CR><C-w>l", opt)
 keymap("n", "<leader>h", ":split<CR>", opt)
+keymap('n', 'te', ':tabedit<CR>', opt)
 
 -- splitmove
 local tmuxNav = require("nvim-tmux-navigation")

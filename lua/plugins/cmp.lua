@@ -14,17 +14,6 @@ local cmp = {
       enabled = function()
         return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require('cmp_dap').is_dap_buffer()
       end,
-      window = {
-        completion = {
-          winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-          col_offset = -3,
-          side_padding = 0,
-          border = 'rounded'
-        },
-        documentation = {
-          border = 'rounded'
-        }
-      },
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)

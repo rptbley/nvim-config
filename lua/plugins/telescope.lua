@@ -1,12 +1,16 @@
 local M = {
   "nvim-telescope/telescope.nvim",
-  dependencies = { "nvim-lua/plenary.nvim", 'nvim-telescope/telescope-ui-select.nvim' },
+  build = 'make',
+  dependencies = { "nvim-lua/plenary.nvim", 'nvim-telescope/telescope-fzf-native.nvim' },
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
-
     telescope.setup({
       defaults = {
+        sorting_strategy = 'ascending',
+        layout_config = {
+          prompt_position = 'top'
+        },
         initial_mode = "normal",
         mappings = {
           i = {
@@ -18,20 +22,17 @@ local M = {
           },
         },
       },
-      pickers = {
-        find_files = { theme = "dropdown" },
-        live_grep = { theme = "dropdown" },
-        buffers = { theme = "dropdown" },
-        oldfiles = { theme = "dropdown" },
-      },
       extensions = {
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown()
+        fzf = {
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case"
         }
       }
     })
 
-    telescope.load_extension('ui-select')
+    telescope.load_extension('fzf')
   end,
 }
 

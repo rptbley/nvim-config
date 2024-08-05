@@ -23,9 +23,9 @@ vim.api.nvim_create_user_command("NeotreeCustom", function()
 
   if neotree_open then
     if neotree_focused then
-      vim.cmd("NeoTreeClose")
+      vim.cmd("Neotree close")
     else
-      vim.cmd("NeoTreeFocus")
+      vim.cmd("Neotree focus")
     end
   else
     vim.cmd("Neotree")
@@ -39,6 +39,24 @@ vim.api.nvim_create_user_command("CustomCloseBuffer", function()
   if #buffers > 1 then
     vim.cmd("bp|bd #")
   else
-    vim.cmd(":bdelete|:NeoTreeFocus")
+    vim.cmd(":bdelete|:Neotree")
   end
+end, {})
+
+-- go to definition and list of references
+local telescope = require("telescope.builtin")
+vim.api.nvim_create_user_command("CustomGoToDefinition", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local params = vim.lsp.util.make_position_params()
+  local current_buffer_uri = params.textDocument.uri
+
+  vim.lsp.buf_request_all(bufnr, 'textDocument/definition', params, function(results_per_client)
+    local result_buffer_uri = results_per_client[1].result[1].uri
+
+    if current_buffer_uri == result_buffer_uri then
+      telescope.lsp_references()
+    else
+      telescope.lsp_definitions()
+    end
+  end)
 end, {})
