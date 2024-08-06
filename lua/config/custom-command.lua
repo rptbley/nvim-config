@@ -51,7 +51,15 @@ vim.api.nvim_create_user_command("CustomGoToDefinition", function()
   local current_buffer_uri = params.textDocument.uri
 
   vim.lsp.buf_request_all(bufnr, 'textDocument/definition', params, function(results_per_client)
-    local result_buffer_uri = results_per_client[1].result[1].uri
+    local result_buffer_uri = ''
+
+    for key, value in pairs(results_per_client[1].result[1]) do
+      local lowercaseKey = string.lower(key)
+
+      if string.find(lowercaseKey, 'uri') then
+        result_buffer_uri = value
+      end
+    end
 
     if current_buffer_uri == result_buffer_uri then
       telescope.lsp_references()
