@@ -11,7 +11,7 @@ augroup end
 ]])
 
 vim.cmd("set termguicolors")
-vim.cmd.colorscheme("sonokai")
+vim.cmd.colorscheme("everforest")
 
 local uv = vim.loop
 vim.api.nvim_create_autocmd("VimEnter", {
