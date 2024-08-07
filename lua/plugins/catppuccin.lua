@@ -11,8 +11,12 @@ local M = {
         gitsigns = true,
         neotree = true,
         notify = true,
-        lsp_saga = true,
-        noice = true
+        noice = true,
+        dap = true,
+        dap_ui = true,
+        telescope = {
+          enabled = true,
+        }
       }
     })
   end

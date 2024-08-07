@@ -6,7 +6,7 @@ local M = {
       options = {
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
-        theme = "everforest",
+        theme = "catppuccin",
       },
     })
   end,
